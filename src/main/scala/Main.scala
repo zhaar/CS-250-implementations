@@ -1,5 +1,6 @@
 
 import Algorithms._
+import MaxSubArray.maxSubArray
 
 object Main {
 
@@ -8,5 +9,7 @@ object Main {
     val arrayToSort = Array(4,3,2,1,0)
     println(listToSort)
     println(mergeSort[Int](_ <= _, listToSort.toStream).mkString(", "))
+    val maxSub = Array(-2, -4, 3, -1, 5, 7, -7, -1)
+    println(maxSubArray(maxSub))
   }
 }
