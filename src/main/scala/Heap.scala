@@ -6,20 +6,20 @@ object Heap {
       maxHeapify(a, i)
     }
   }
+
   def maxHeapify(arr: Array[Int], i: Int): Unit = {
     println("max heapify of " + arr.mkString(", ") + " at index " +i)
     val l = leftIndex(i)
     val r = rightIndex(i)
-    println("left is " + l)
-    println("right is " + r)
-    println("length is " + arr.length)
-    val largest = if (l < arr.length && arr(l) > arr(i)) {
+    var largest = if (l < arr.length && arr(l) > arr(i)) {
       l
-    } else if (r < arr.length && arr(r) > arr(i)) {
-      r
     } else {
       i
     }
+    if (r < arr.length && arr(r) > arr(largest)) {
+      largest = r
+    }
+
     if (largest != i) {
       swap(arr, i, largest)
       maxHeapify(arr, largest)
@@ -27,12 +27,10 @@ object Heap {
   }
 
   def swap[T](a: Array[T], i: Int, j: Int): Unit = {
-    println("before swap: " + a.mkString(", "))
+    println(s"swapping a[$i] = ${a(i)} and a[$j] = ${a(j)}")
     val temp = a(i)
     a(i) = a(j)
     a(j) = temp
-    println("after swap: " + a.mkString(", "))
-
   }
 
   def leftIndex(i: Int): Int = 2 * (i + 1) - 1

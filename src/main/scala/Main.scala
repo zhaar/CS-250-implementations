@@ -12,10 +12,11 @@ object Main {
     val maxSub = Array(-2, -4, 3, -1, 5, 7, -7, -1)
     println(maxSubArray(maxSub))
 
-    val heapArray = Array(5,6,7,8,9,10,11,12,13,14,15)
+    val heapArray = Array(4, 1, 3, 2, 16, 9, 10, 14, 8, 7)
     println("array to heapify: " + printArray(heapArray))
     buildMaxHeap(heapArray)
     println("after heapificatoin: " + printArray(heapArray))
+
 
     def printArray[T](arr: Array[T]): String = arr.mkString(", ")
   }
