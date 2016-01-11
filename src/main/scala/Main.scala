@@ -14,7 +14,7 @@ object Main {
 
     val heapArray = Array(4, 1, 3, 2, 16, 9, 10, 14, 8, 7)
     println("array to heapify: " + printArray(heapArray))
-    buildMaxHeap(heapArray)
+    buildMaxHeapStateful(heapArray)
     println("after heapificatoin: " + printArray(heapArray))
 
 
