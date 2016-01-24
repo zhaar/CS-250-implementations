@@ -1,6 +1,7 @@
 trait AbstractQueue[+T] {
   def enqueue[S >: T](e: S): AbstractQueue[S]
   def dequeue: (T, AbstractQueue[T])
+  def map[S](f: T => S): AbstractQueue[S]
 }
 
 /*
@@ -12,6 +13,7 @@ trait AbstractQueue[+T] {
 case object EmptyQueue extends AbstractQueue[Nothing] {
   def enqueue[T](e: T) = AbstractQueue.SingletonQueue(e)
   def dequeue = throw new NoSuchElementException("can't dequeue and empty queue")
+  def map[S](f: Nothing => S): AbstractQueue[Nothing] = EmptyQueue
 }
 
 case class InefficientQueue[T](first: T, mid: AbstractQueue[T], last: T) extends AbstractQueue[T] {
@@ -21,6 +23,7 @@ case class InefficientQueue[T](first: T, mid: AbstractQueue[T], last: T) extends
     case InefficientQueue(fst, EmptyQueue, lst) => InefficientQueue(fst, AbstractQueue.SingletonQueue(lst), last)
     case InefficientQueue(fst, md, lst) => InefficientQueue(fst, md.enqueue(lst), last)
   })
+  def map[S](f: T => S) = InefficientQueue(f(first), mid map f, f(last))
 }
 
 object AbstractQueue {
@@ -40,4 +43,5 @@ object AbstractQueue {
      case Nil => Queue(enq.reverse, Nil).dequeue
      case x :: xs => (x, Queue(xs, enq))
    }
+   def map[S](f: T => S) = Queue(deq map f, enq map f)
  }
