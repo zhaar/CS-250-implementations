@@ -1,4 +1,4 @@
-trait AbstractQueue[+T] {
+sealed trait AbstractQueue[+T] {
   def enqueue[S >: T](e: S): AbstractQueue[S]
   def dequeue: (T, AbstractQueue[T])
   def map[S](f: T => S): AbstractQueue[S]
@@ -10,25 +10,26 @@ trait AbstractQueue[+T] {
  * sadly, this implementation doesn't conform to the traditionnal running time of
  * queue operation that are O(1) enqueue and dequeue
  */
-case object EmptyQueue extends AbstractQueue[Nothing] {
-  def enqueue[T](e: T) = AbstractQueue.SingletonQueue(e)
-  def dequeue = throw new NoSuchElementException("can't dequeue and empty queue")
-  def map[S](f: Nothing => S): AbstractQueue[Nothing] = EmptyQueue
-}
-
-case class InefficientQueue[T](first: T, mid: AbstractQueue[T], last: T) extends AbstractQueue[T] {
-  def enqueue[S >: T](e: S): InefficientQueue[S] = InefficientQueue(first, mid.enqueue(last), e)
-  def dequeue = (first , mid match {
-    case EmptyQueue => AbstractQueue.SingletonQueue(last)
-    case InefficientQueue(fst, EmptyQueue, lst) => InefficientQueue(fst, AbstractQueue.SingletonQueue(lst), last)
-    case InefficientQueue(fst, md, lst) => InefficientQueue(fst, md.enqueue(lst), last)
-  })
-  def map[S](f: T => S) = InefficientQueue(f(first), mid map f, f(last))
-}
-
-object AbstractQueue {
-  def SingletonQueue[T](e: T): InefficientQueue[T] = InefficientQueue[T](e, EmptyQueue, e)
-}
+// case object EmptyQueue extends AbstractQueue[Nothing] {
+//   def enqueue[T](e: T) = AbstractQueue.SingletonQueue(e)
+//   def dequeue = throw new NoSuchElementException("can't dequeue and empty queue")
+//   def map[S](f: Nothing => S): AbstractQueue[Nothing] = EmptyQueue
+// }
+//
+// there is something wrong with insert anyway
+// case class InefficientQueue[T](first: T, mid: AbstractQueue[T], last: T) extends AbstractQueue[T] {
+//   def enqueue[S >: T](e: S): InefficientQueue[S] = InefficientQueue(first, E) else InefficientQueue(first, mid.enqueue(last), e)
+//   def dequeue = (first , mid match {
+//     case EmptyQueue => AbstractQueue.SingletonQueue(last)
+//     case InefficientQueue(fst, EmptyQueue, lst) => InefficientQueue(fst, AbstractQueue.SingletonQueue(lst), last)
+//     case InefficientQueue(fst, md, lst) => InefficientQueue(fst, md.enqueue(lst), last)
+//   })
+//   def map[S](f: T => S) = InefficientQueue(f(first), mid map f, f(last))
+// }
+//
+// object AbstractQueue {
+//   def SingletonQueue[T](e: T): InefficientQueue[T] = InefficientQueue[T](e, EmptyQueue, e)
+// }
 
 /*
  * to get O(1) enqueue and dequeue we are going to use amortized analysis
