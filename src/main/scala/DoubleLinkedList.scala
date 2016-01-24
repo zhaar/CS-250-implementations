@@ -13,17 +13,17 @@ trait DoubleLinkedList[+T] {
   def next: DoubleLinkedList[T]
   def prev: DoubleLinkedList[T]
   def elem: T
-  def insertAfter(t: T): DoubleLinkedList
-  def insertBefore(t: T): DoubleLinkedList
+  def insertAfter[S >: T](t: S): DoubleLinkedList[S]
+  def insertBefore[S >: T](t: S): DoubleLinkedList[S]
 }
 
 case object Empty extends DoubleLinkedList[Nothing] {
   def isEmpty = true
-  def next = throw new NoSuchElementException
-  def prev = throw new NoSuchElementExcpetion
-  def elem = throw new NoSuchElementException
-  def insertAfter(t: T) = Node(Nil, t, Nil)
-  def insertBefore(t: T) = Node(Nil, t, Nil)
+  def next = throw new NoSuchElementException("Empty has no next element")
+  def prev = throw new NoSuchElementException("Empty has no previous element")
+  def elem = throw new NoSuchElementException("Empty has no value")
+  def insertAfter[T](t: T) = Node(Nil, t, Nil)
+  def insertBefore[T](t: T) = Node(Nil, t, Nil)
 }
 
 case class Node[T](left: List[T], e: T, right: List[T]) extends DoubleLinkedList[T] {
@@ -31,6 +31,13 @@ case class Node[T](left: List[T], e: T, right: List[T]) extends DoubleLinkedList
   def next = Node(left.tail, left.head, e :: right)
   def prev = Node(e :: left, right.head, right.tail)
   def elem = e
-  def insertAfter(t: T): DoubleLinkedList = Node(e :: left, t,right)
-  def insertBefore(t: T): DoubleLinkedList = Node(left, t, e :: right)
+  def insertAfter[S >: T](t: S): DoubleLinkedList[S] = Node(e :: left, t,right)
+  def insertBefore[S >: T](t: S): DoubleLinkedList[S] = Node(left, t, e :: right)
+}
+
+object DoubleLinkedList {
+  def map[T, S](list: DoubleLinkedList[T], f: T => S): DoubleLinkedList[S] = list match {
+    case Empty => Empty
+    case Node(p, e, n) => Node(p map f, f(e), n map f)
+  }
 }
