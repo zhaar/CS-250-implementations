@@ -1,6 +1,13 @@
-object RodCutting {
+object DynamicProgramming {
 
-  //Topdown
+  //since fibonacci is a very simple recursive function we can define it as a
+  //lazy stream
+  def fibonacci(n: Int): Int = {
+    def f: Stream[Int] = 0 #:: 1 #:: f.zip(f.tail).map {case (fst, snd) => fst + snd}
+    f.drop(n).head
+  }
+
+  //Topdown stateful
   def memoizedRodCut(prices: Array[Int]): Int = {
     val cache = prices map { _ => -1 }
     var cutposition = prices map { _ => 0 }
@@ -20,28 +27,12 @@ object RodCutting {
     }
     return loop(prices.length - 1)
   }
-  // def memoized_cut_rod_aux(p, n, r):
-  //   if r[n] >= 0:
-  //       return r[n] #Return directly if we already calculated the value
-  //   best = -1
-  //   if n == 0:
-  //       best = 0
-  //   else:
-  //       for i in range(1, n+1):
-  //           best = max(best, p[i] + memoized_cut_rod_aux(p, n-i, r))
-  //   r[n] = best
-  //   return r[n]
-//
-//
-// def memoized_cut_rod(p, n):
-//     r = [-1]*(n+1) #Create an array r[0...n]
-//     return memoized_cut_rod_aux(p, n, r)
 
   /*
    * making this algorithm stateless is not quite trivial since we
    * don't have access to a random access array
    * but using bottom up wll help us
-   * TODO: each recusrive call to loop concatenates a new element to the cache
+   * TODO: each recursive call to loop concatenates a new element to the cache
    * we need to make sure this call doesn't run in O(n)
    */
    def statelessRodCut(prices: Seq[Int]): Int = {
