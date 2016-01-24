@@ -9,11 +9,11 @@ class DPSpec extends FlatSpec {
 
   "RodCutting problem" should "work statefully" in {
     val rodPrices = Array(0, 1, 5, 8, 9, 10, 17, 17, 20, 24, 30)
-    assert(memoizedRodCut(rodPrices) == 23))
+    assert(memoizedRodCut(rodPrices) == 24)
   }
 
   it should "work statelessly as well" in {
     val rodPrices = Array(0, 1, 5, 8, 9, 10, 17, 17, 20, 24, 30)
-    assert(statelessRodCut(rodPrices.toSeq))
+    assert(statelessRodCut(rodPrices.toSeq) == 24)
   }
 }
