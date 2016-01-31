@@ -60,7 +60,6 @@ class MutableLinkedList[T] extends MutableDLL[T] {
       case s: LLSentinel => s.pointer = n
       case elem: LLElem => elem.next = n
     }
-    this
   }
 
   def remove(e: T): Unit = {

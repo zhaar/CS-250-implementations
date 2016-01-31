@@ -1,0 +1,29 @@
+client:
+  name: swift-build
+
+tools: {}
+
+targets:
+  "": [<swift>]
+  swift: [<swift>]
+
+commands:
+  <swift-swiftc>:
+    tool: swift-compiler
+    executable: "/Library/Developer/Toolchains/swift-DEVELOPMENT-SNAPSHOT-2016-01-25-a.xctoolchain/usr/bin/swiftc"
+    inputs: ["/Users/zephyz/Documents/CS-250-implementations/swift/Sources/main.swift"]
+    outputs: ["<swift-swiftc>","/Users/zephyz/Documents/CS-250-implementations/swift/.build/debug/swift.swiftmodule","/Users/zephyz/Documents/CS-250-implementations/swift/.build/debug/swift.o/Sources/main.swift.o"]
+    module-name: "swift"
+    module-output-path: "/Users/zephyz/Documents/CS-250-implementations/swift/.build/debug/swift.swiftmodule"
+    is-library: false
+    sources: ["/Users/zephyz/Documents/CS-250-implementations/swift/Sources/main.swift"]
+    objects: ["/Users/zephyz/Documents/CS-250-implementations/swift/.build/debug/swift.o/Sources/main.swift.o"]
+    import-paths: ["/Users/zephyz/Documents/CS-250-implementations/swift/.build/debug"]
+    temps-path: "/Users/zephyz/Documents/CS-250-implementations/swift/.build/debug/swift.o/swift"
+    other-args: ["-j8","-Onone","-g","-target","x86_64-apple-macosx10.10","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk","-I","/usr/local/include","-D","SWIFT_PACKAGE"]
+  <swift>:
+    tool: shell
+    inputs: ["<swift-swiftc>","/Users/zephyz/Documents/CS-250-implementations/swift/.build/debug/swift.o/Sources/main.swift.o"]
+    outputs: ["<swift>","/Users/zephyz/Documents/CS-250-implementations/swift/.build/debug/swift"]
+    args: ["/Library/Developer/Toolchains/swift-DEVELOPMENT-SNAPSHOT-2016-01-25-a.xctoolchain/usr/bin/swiftc","-o","/Users/zephyz/Documents/CS-250-implementations/swift/.build/debug/swift","/Users/zephyz/Documents/CS-250-implementations/swift/.build/debug/swift.o/Sources/main.swift.o","-target","x86_64-apple-macosx10.10","-Xlinker","-all_load","-g","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk","-L/usr/local/lib"]
+    description: "Linking Executable:  .build/debug/swift"

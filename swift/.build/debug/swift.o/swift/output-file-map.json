@@ -1,0 +1,11 @@
+{
+  "": {
+    "swift-dependencies": "/Users/zephyz/Documents/CS-250-implementations/swift/.build/debug/swift.o/swift/master.swiftdeps"
+  },
+  "/Users/zephyz/Documents/CS-250-implementations/swift/Sources/main.swift": {
+    "dependencies": "/Users/zephyz/Documents/CS-250-implementations/swift/.build/debug/swift.o/swift/main.d",
+    "object": "/Users/zephyz/Documents/CS-250-implementations/swift/.build/debug/swift.o/Sources/main.swift.o",
+    "swiftmodule": "/Users/zephyz/Documents/CS-250-implementations/swift/.build/debug/swift.o/swift/main~partial.swiftmodule",
+    "swift-dependencies": "/Users/zephyz/Documents/CS-250-implementations/swift/.build/debug/swift.o/swift/main.swiftdeps"
+  }
+}

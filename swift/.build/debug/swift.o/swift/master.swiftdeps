@@ -1,0 +1,5 @@
+version: "Apple Swift version 3.0-dev (LLVM f95d47afa7, Clang f66c5bb67b, Swift b745691a38)"
+options: "b9512c153b20ef572bd4f7b91f2aff58"
+build_time: [507590609, 544466000]
+inputs:
+  "/Users/zephyz/Documents/CS-250-implementations/swift/Sources/main.swift": [507578634, 0]

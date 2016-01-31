@@ -10,11 +10,11 @@ case object Leaf extends ArbitraryTree[Nothing] {
 trait BTree[T] extends ArbitraryTree[T]
 
 case class BinaryTree[T](elem: T, left: BTree[T], right: BTree[T]) extends BTree[T] {
-  def rank: Int = 1 + Math.max(le.ft.rank, right.rank)
+  def rank: Int = 1 + Math.max(left.rank, right.rank)
 }
 
 case class AnyTree[T](elem: T, children: List[AnyTree[T]]) extends ArbitraryTree[T] {
-  def rank = 1 + children.map(_.rank).max
+  def rank = 0
 }
 
 trait Vertex[T] {
