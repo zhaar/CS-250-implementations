@@ -1,7 +1,7 @@
 
 class MutableTree[T](edges: Set[DiscoverableEdge[T]], verticies: Set[DiscoverableVertex[T]]) {
   def DFS(): Unit = {
-    var time = 0;
+    var time = 0
     def visit(vertex: DiscoverableVertex[T]): Unit = {
       time = time + 1
       val discoveryTime = time

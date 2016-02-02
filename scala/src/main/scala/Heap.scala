@@ -60,7 +60,7 @@ object Heap {
   sealed trait Heap[+T] {
     def rank(): Int
     def empty(): Heap[T] = EmptyHeap
-    def isEmpty(): Boolean
+    def isEmpty: Boolean
     def root(): T
     def insert[S >: T](elem: S)(implicit ord: Ordering[S]): Heap[S]
     def merge[S >: T](heap: Heap[S])(implicit ordering: Ordering[S]): Heap[S]

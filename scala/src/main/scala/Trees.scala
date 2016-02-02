@@ -34,13 +34,13 @@ case object Unknown extends VertexState
 
 class Edge[T](source: Vertex[T], destination: Vertex[T])
 
-class DiscoverableEdge[T](source: DiscoverableVertex[T], destination: DiscoverableVertex[T])
+class DiscoverableEdge[T](val source: DiscoverableVertex[T], val destination: DiscoverableVertex[T])
 
-class DiscoverableVertex[T](children: List[DiscoverableEdge[T]], var state: VertexState) extends Vertex[T]
+class DiscoverableVertex[T](val outEdges: List[DiscoverableEdge[T]], var state: VertexState) extends Vertex[T]
 
 class Graph[T](edges: Set[Edge[T]], verticies: Set[Vertex[T]])
 
-class WeightedEdge[T](source: Vertex[T], destination: Vertex[T], w: Int) extends Edge[T](source, destination) with Weighted {
+class WeightedEdge[T](val source: Vertex[T], val destination: Vertex[T], w: Int) extends Edge[T](source, destination) with Weighted {
   override def weight: Int = w
   def toEdge = new Edge(source, destination)
 }
