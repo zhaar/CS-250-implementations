@@ -17,21 +17,28 @@ case class AnyTree[T](elem: T, children: List[AnyTree[T]]) extends ArbitraryTree
   def rank = 0
 }
 
-trait Vertex[T] {
-  def outEdges: List[Edge[T]]
-}
+trait Vertex[T]
 
 trait Weighted {
   def weight: Int
 }
 
+trait Discoverable {
+  def discovered: Int
+  def finished: Int
+}
+trait VertexState
+case class Discovered(time: Int) extends VertexState
+case class Finished(discoverTime: Int, finishTime: Int) extends VertexState
+case object Unknown extends VertexState
+
 class Edge[T](source: Vertex[T], destination: Vertex[T])
 
-class Graph[T](edges: Set[Edge[T]], verticies: Set[Vertex[T]]) {
-  def depthFirstSearch(source: Edge[T]): List[(Edge[T], Int)] = {
-    ???
-  }
-}
+class DiscoverableEdge[T](source: DiscoverableVertex[T], destination: DiscoverableVertex[T])
+
+class DiscoverableVertex[T](children: List[DiscoverableEdge[T]], var state: VertexState) extends Vertex[T]
+
+class Graph[T](edges: Set[Edge[T]], verticies: Set[Vertex[T]])
 
 class WeightedEdge[T](source: Vertex[T], destination: Vertex[T], w: Int) extends Edge[T](source, destination) with Weighted {
   override def weight: Int = w
